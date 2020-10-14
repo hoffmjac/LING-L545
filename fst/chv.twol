@@ -1,0 +1,43 @@
+Alphabet
+  а ӑ е ё ӗ и о у ӳ ы э ю я б в г д ж з к л м н п р с ҫ т ф х ц ч ш щ й ь ъ
+  А Ă Е Ё Ӗ И О У Ӳ Ы Э Ю Я Б В Г Д Ж З К Л М Н П Р С Ҫ Т Ф Х Ц Ч Ш Щ Й Ь Ъ 
+ %{A%}:а %{A%}:е %{Ă%}:ӑ %{Ă%}:ӗ %{Ă%}:0 %{М%}:м %{М%}:0
+;
+
+Sets 
+
+BackVow = ӑ а ы о у я ё ю ;
+
+FrontVow = ӗ э и ӳ е ; 
+
+Cns = б в г д ж з к л м н п р с ҫ т ф х ц ч ш щ й ь ъ ; 
+
+
+Rules 
+
+"Back vowel harmony for archiphoneme {A}"
+%{A%}:а <=> BackVow: [ Cns: | %>: ]+ _ ; 
+
+"If surface vowel before morpheme boundary"
+%{Ă%}:0 <=> [:BackVow | :FrontVow] %>: _ ;
+
+"If previous %{М%}:0"
+%{Ă%}:0 <=> %{М%}:0 %>: _ ;
+
+! хула>се{М}>{Ă}н  
+
+"if there is a following %{Ă%}: followed by н"
+%{М%}:0 <=> _ %>: %{Ă%}: н: ;
+!the following archiphoneme comes after the morpheme boundary
+
+"%{Ă%}:ӑ according to vowel harmony if previous consonant"
+%{Ă%}:ӑ <=> BackVow: [ Cns: ]* %>: [ Cns: ]* _ ;
+
+!патша>л{Ă}х
+
+"%{Ă%}:ӗ according to vowel harmony"
+%{Ă%}:ӗ <=> FrontVow: [ Cns: ]* %>: [ Cns: ]* _ ;  
+
+"Remove morpheme boundary"
+%>:0 <=> _ ;
+
