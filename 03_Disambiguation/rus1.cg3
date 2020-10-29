@@ -1,0 +1,31 @@
+#solve raboty ambiguity
+
+DELIMITERS = "." ;
+
+LIST NOUN = NOUN ;
+LIST DET = DET ;
+LIST PRON = PRON ;
+LIST Part = VerbForm=Part ;
+LIST Nom = Case=Nom ;
+LIST VERB = VERB ;
+LIST Gen = Case=Gen ;
+LIST ADP = ADP ;
+
+SECTION
+
+SELECT Gen IF (-1C NOUN) ;
+
+#rule 2
+
+#все или весь
+
+SELECT DET if (0C DET or PRON) (1C Part) ;
+
+
+#rule 3
+
+#дело
+
+REMOVE Nom IF (-1 ("в" ADP)) ;
+
+
